@@ -1,0 +1,44 @@
+- name: Installation install software-properties-common
+  apt: name=software-properties-common
+
+- name: "Repo PHP 7.1.3"
+  apt_repository:
+    repo="ppa:ondrej/php"
+
+- name: "Updating the repo"
+  apt: update_cache=yes
+
+- name: Installation PHP 7.1.3
+  apt: name=php7.1.3 state=present
+
+- name: install lamp stack
+  apt:
+    pkg:
+      - php7.1.3-mysql
+      - php7.1.3-curl
+      - php7.1.3-json
+      - php7.1.3-cgi
+      - php7.1.3-xsl
+      - php7.1.3-cgi
+      - php7.1.3-gd
+      - php7.1.3-mbstring
+      - php7.1.3-zip
+      - php7.1.3-xmlrpc
+      - php7.1.3-soap
+      - php7.1.3-intl
+      - libapache2-mod-php
+    state: present
+    update_cache: yes 
+
+- name: "Install Composer dependencies"
+  script: composer install --no-scripts --no-dev
+  
+- name: "Cache the configuration"
+  script: "php artisan config:cache"
+  
+- name: "Clear the view cache"
+  script: "php artisan view:clear"
+  
+- name: "Run the migrations"
+  script: "php artisan migrate --force"
+ 

@@ -1,0 +1,27 @@
+---
+- name: Frontend Server Installation
+  hosts: front
+  remote_user: root
+  vars:
+    user: TryGuy
+    domains: 
+      - nsa.dev
+      - nsa.io
+  roles:
+    - utils
+    - user
+    - nginx
+    - angular
+- name: Backend Server Installation
+  hosts: back
+  remote_user: root
+  roles:
+    - ...
+    - ...
+- name: Database Installation
+  hosts: db
+  remote_user: root
+  roles:
+    - ...
+    - ...
+...

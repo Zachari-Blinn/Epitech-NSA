@@ -1,0 +1,12 @@
+---
+- name: Create folder
+  become: yes
+  file: path=/home/{{ user }}/{{ item }} state=directory owner={{ user }}
+
+- name: Link to www
+  become: yes
+  file: src=templates/nginx.j2 dest=/etc/nginx/sites-available/{{ item }}
+
+- name: Activate {{ item }} domain
+  file : src=/etc/nginx/sites-available/{{ item }} dest=/etc/nginx/sites-enabled/{{ item }} state=link
+  notify: nginx reload

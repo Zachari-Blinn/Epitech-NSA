@@ -16,7 +16,7 @@
   hosts: back
   remote_user: root
   roles:
-    - ...
+    - laravel
     - ...
 - name: Database Installation
   hosts: db

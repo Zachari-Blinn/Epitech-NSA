@@ -1,0 +1,65 @@
+---
+- name: Laravel | Add php-7.1.3 PPA
+  apt_repository: repo='ppa:ondrej/php'
+                  state=present
+                  update_cache=yes
+  sudo: true
+
+- name: Laravel | install php packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - php7.1.3-fpm
+    - php7.1.3-cli
+    - php7.1.3-common
+    - php7.1.3-curl
+    - php7.1.3-json
+    - php7.1.3-gd
+    - php7.1.3-mcrypt
+    - php7.1.3-odbc
+    - php7.1.3-pgsql
+    - php7.1.3-mbstring
+    - php7.1.3-mysql
+    - php7.1.3-xmlrpc
+    - php7.1.3-opcache
+    - php7.1.3-intl
+    - php7.1.3-bz2
+    - php7.1.3-xml
+  sudo: true
+
+- name: Laravel | FPM php.ini
+  template:
+    src=php.ini.j2
+    dest=/etc/php/7.1.3/fpm/php.ini
+    backup=yes
+    owner=root
+    group=root
+    mode=0644
+  sudo: true
+
+- name: Laravel | CLI php.ini
+  template:
+    src=php.ini.j2
+    dest=/etc/php/7.1.3/cli/php.ini
+    backup=yes
+    owner=root
+    group=root
+    mode=0644
+  sudo: true
+
+- name: Laravel | configure opcache
+  template:
+    src=opcache.ini.j2
+    dest=/etc/php/7.1.3/mods-available/opcache.ini
+    backup=yes
+    owner=root
+    group=root
+    mode=0644
+  sudo: true
+
+- name: Laravel | restart nginx
+  raw: service nginx restart
+  sudo: true
+
+- name: Laravel | restart fpm
+  raw: service php7.1.3-fpm restart
+  sudo: true

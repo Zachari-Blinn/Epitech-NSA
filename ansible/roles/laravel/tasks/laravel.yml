@@ -1,0 +1,9 @@
+---
+- name: "Laravel | Cache the configuration"
+  script: "php artisan config:cache"
+  
+- name: "Laravel | Clear the view cache"
+  script: "php artisan view:clear"
+  
+- name: "Laravel | Run the migrations"
+  script: "php artisan migrate --force"

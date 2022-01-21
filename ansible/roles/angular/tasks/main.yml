@@ -1,0 +1,10 @@
+---
+- name: Install Angular & web client packages
+  command: npm install
+  args:
+    chdir: "{{ angular_app_dir }}"
+
+- name: Build web client
+  command: npm run build:prod
+  args:
+    chdir: "{{ angular_app_dir }}"

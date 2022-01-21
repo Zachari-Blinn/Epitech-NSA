@@ -7,6 +7,6 @@
     when: user is defined
     authorized_key: user={{ user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
-  - name: "{{ user }} becomes sudoers"
+  - name: "user becomes sudoers"
     when: user is defined
-    template: src=templates/sudoers.j2 dest=/etc/sudoers.d/{{ user }}-sudoer valdiate='visudo' -cf %s'
+    template: src=templates/sudoers.j2 dest=/etc/sudoers.d/{{ user }}-sudoer valdiate='visudo -cf %s'

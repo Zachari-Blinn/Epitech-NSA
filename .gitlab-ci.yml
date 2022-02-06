@@ -1,0 +1,33 @@
+stages:
+  - pull
+  - build
+  - deploy
+
+pull:
+  stage: pull
+  script:
+    - whoami
+    - cd /www/t-nsa-gitlab
+    - git pull
+    - cd front
+    - npm install
+  tags:
+    - shell
+
+build:
+  stage: build
+  script: 
+    - cd /www/t-nsa-gitlab/front
+    - npm run build
+  tags:
+    - shell
+
+deploy:
+  stage: deploy
+  script:
+    - cd /etc/ansible
+    - ansible-playbook playbook.yml
+  tags:
+    - shell
+  only:
+    - main

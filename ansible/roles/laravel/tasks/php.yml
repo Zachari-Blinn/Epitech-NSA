@@ -3,7 +3,7 @@
   apt_repository: repo='ppa:ondrej/php'
                   state=present
                   update_cache=yes
-  sudo: true
+  become: yes
 
 - name: Laravel | install php packages
   apt: pkg={{ item }} state=installed
@@ -24,7 +24,7 @@
     - php7.1.3-intl
     - php7.1.3-bz2
     - php7.1.3-xml
-  sudo: true
+  become: yes
 
 - name: Laravel | FPM php.ini
   template:
@@ -34,7 +34,7 @@
     owner=root
     group=root
     mode=0644
-  sudo: true
+  become: yes
 
 - name: Laravel | CLI php.ini
   template:
@@ -44,7 +44,7 @@
     owner=root
     group=root
     mode=0644
-  sudo: true
+  become: yes
 
 - name: Laravel | configure opcache
   template:
@@ -54,12 +54,12 @@
     owner=root
     group=root
     mode=0644
-  sudo: true
+  become: yes
 
 - name: Laravel | restart nginx
   raw: service nginx restart
-  sudo: true
+  become: yes
 
 - name: Laravel | restart fpm
   raw: service php7.1.3-fpm restart
-  sudo: true
+  become: yes

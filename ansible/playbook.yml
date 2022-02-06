@@ -4,24 +4,27 @@
   remote_user: root
   vars:
     user: TryGuy
-    domains: 
-      - nsa.dev
-      - nsa.io
+    domains:
+      front:
+        name: tek.ganster-dev.fr
+        port: 5000
+      back:
+        name: api.ganster-dev.fr
+        port: 5001
   roles:
     - utils
     - user
     - nginx
+    - nodejs
     - angular
 - name: Backend Server Installation
   hosts: back
   remote_user: root
   roles:
     - laravel
-    - ...
 - name: Database Installation
   hosts: db
   remote_user: root
   roles:
-    - ...
-    - ...
+    - mysql
 ...

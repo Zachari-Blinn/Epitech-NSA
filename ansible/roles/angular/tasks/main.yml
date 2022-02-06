@@ -2,9 +2,9 @@
 - name: Install Angular & web client packages
   command: npm install
   args:
-    chdir: "{{ angular_app_dir }}"
+    chdir: "/www/t-nsa-gitlab/front"
 
 - name: Build web client
-  command: npm run build:prod
+  command: npm run build
   args:
-    chdir: "{{ angular_app_dir }}"
+    chdir: "/www/t-nsa-gitlab/front"

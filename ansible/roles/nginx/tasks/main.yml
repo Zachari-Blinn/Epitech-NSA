@@ -14,4 +14,6 @@
 
 - name: Configure domains
   include: site.yml
-  with_items: domains
+  with_items:
+    - { name: 'tek.ganster-dev.fr', port: 5000 }
+    - { name: 'api.tek.ganster-dev.fr', port: 5001 }
